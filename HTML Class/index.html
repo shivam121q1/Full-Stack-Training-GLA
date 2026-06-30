@@ -2,6 +2,14 @@
 <html>
   <head>
     <title>Full Stack Training</title>
+    <style>
+      .font {
+        color: red;
+      }
+      p {
+        color: blue;
+      }
+    </style>
   </head>
   <body>
     <!-- Heading Tags  -->
@@ -13,7 +21,7 @@
     <h6>This is heading 2</h6>
 
     <!-- Paragraph tag -->
-    <p>This is a paragraph content</p>
+    <p>This is a<sub>paragraph</sub> content</p>
 
     <!-- Anchor tag -->
     <!-- name="value" -->
@@ -108,8 +116,12 @@
       </article>
     </section>
 
+    <audio controls loop>
+      <source src="./alexguz-funk-amp-breakbeat-541097.mp3" type="audio/mpeg" />
+    </audio>
+
     <iframe
-      src="https://www.google.com/"
+      src="./index2.html"
       width="600"
       height="450"
       style="border: 0"
@@ -127,11 +139,13 @@
         multiline
         name="email"
         placeholder="Enter your email"
+        required
       />
       <input
         type="password"
         name="password"
-        placeholder="Enter your Password"
+        placeholder="Enter your Password "
+        required
       />
 
       <textarea
@@ -145,11 +159,10 @@
         <option value="">-- Choose Country --</option>
         <option value="in">India</option>
       </select>
-      <input
-        type="submit"
-        name="password"
-        placeholder="Enter your Password"
-      />
+      <input type="submit" name="password" placeholder="Enter your Password" />
     </form>
+
+    <p class="font">Font color</p>
+    <!-- Audio Tags IMple -->
   </body>
 </html>

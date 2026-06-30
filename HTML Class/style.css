@@ -1,0 +1,62 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.container{
+    position: relative;
+    border: 3px solid black;
+    height: 100000px;
+    padding: 20px;
+    display:flex
+}
+
+.box{
+    width: 150px;
+    height: 80px;
+    color: black;
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+    /* margin-bottom: 20px; */
+    border:1px solid black
+}
+
+/* Default Position */
+.static{
+    position: static;
+    background-color: gray;
+}
+
+/* Relative Position */
+.relative{
+    position: relative;
+
+    background-color: green;
+}
+
+/* Absolute Position */
+.absolute{
+    position: absolute;
+  
+    background-color: red;
+}
+
+/* Fixed Position */
+.fixed{
+    position: fixed;
+
+    background-color: blue;
+}
+
+/* Sticky Position */
+.sticky{
+    position: sticky;
+
+    background-color: orange;
+}
+
+.content{
+    height: 1500px;
+    margin-top: 50px;
+}

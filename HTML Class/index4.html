@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        height: 400vh;
+      }
+      .navContainer {
+        display: flex;
+        width: 100%;
+        margin-left: 40px;
+        margin-right: 20px;
+        justify-content: space-between;
+        height: 74px;
+        position: fixed;
+        top: 0;
+        /* right: 0; */
+      }
+      .left {
+        display: flex;
+        gap: 40px;
+      }
+      .logo {
+        width: 120px;
+        height: 74px;
+        object-contain: center;
+      }
+      .navMenu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+      }
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .loginButton {
+        border: 1px solid blue;
+        padding: 10px;
+        color: blue;
+        border-radius: 10px;
+      }
+      .signupButton {
+        background-color: blue;
+        padding: 10px;
+        color: white;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navContainer">
+      <div class="left">
+        <div class="logo">
+          <img
+            class="logo"
+            src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/razorpay-icon.png"
+            alt="logo"
+          />
+        </div>
+        <div class="navMenu">
+          <p>Agentic</p>
+          <p>Agentic</p>
+          <p>Agentic</p>
+          <p>Agentic</p>
+          <p>Agentic</p>
+          <p>Agentic</p>
+        </div>
+      </div>
+      <div class="right">
+        <div class="headPhoneIcon">headphone</div>
+        <div class="indiaFlag">flag</div>
+        <div class="loginButton">Log In</div>
+        <div class="signupButton">Sign Up</div>
+      </div>
+    </nav>
+  </body>
+</html>
