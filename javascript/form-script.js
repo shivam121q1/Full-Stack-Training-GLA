@@ -324,21 +324,126 @@ function outer() {
 // Callback Hell
 
 
-setTimeout(() => {
-    console.log("Boil Water");
-    setTimeout(() => {
+// setTimeout(() => {
+//     console.log("Boil Water");
+//     setTimeout(() => {
 
-        console.log("Add Tea & sugar")
-        setTimeout(() => {
+//         console.log("Add Tea & sugar")
+//         setTimeout(() => {
 
-            console.log("Add Milk")
-            setTimeout(() => {
+//             console.log("Add Milk")
+//             setTimeout(() => {
 
-                console.log("Serve")
+//                 console.log("Serve")
 
-            }, 3000)
+//             }, 3000)
 
-        }, 3000)
+//         }, 3000)
 
-    }, 3000)
-}, 2000)
+//     }, 3000)
+// }, 2000)
+
+
+//Promise
+
+// Promise represent the result of an asynchronous operation that may complete in the future
+
+//pending
+//compelete 
+//failed
+
+// let promise = new Promise(
+//     function (resolve, reject) {
+
+//         setTimeout(() => {
+//             let delivered = false;
+//             if (delivered) {
+//                 resolve("Delivery Successful");
+//             } else {
+//                 reject("Delivery Failed");
+//             }
+//         }, 3000)
+
+//     }
+// );
+
+// console.log("Work etra start")
+
+// //Asynchronous operation
+// promise.then(function (result) {
+//     console.log("Success" + result);
+// }).catch(function (error) {
+//     console.log("Error" + error)
+// })
+
+// // async-> sync
+
+// async function paymentStatus() {
+//     try {
+
+//         let result = await promise;
+//         console.log(result);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+// await paymentStatus();
+
+// //async and await 
+// //
+// console.log("Work etra doing")
+// console.log("Work etra doing")
+// console.log("Work etra doing")
+// console.log("Work etra doing")
+// console.log("Work etra doing")
+// console.log("Work end");
+
+
+
+//.then()-> runs when the promis is resolved
+
+//.catch()runs when the promise is rejected
+
+
+//API (Appilcation Programming Interface )
+//  bridge that allows two appplication to communicate and echange data 
+
+// fetch(url)
+// console.log();
+// https://jsonplaceholder.typicode.com/todos/3
+
+// fetch("https://jsonplaceholder.typicode.com/todos/3").then(
+
+//     function (response) {
+//         console.log(response);
+//         return response.json();
+
+//         //status
+//         // header
+
+//     }
+
+
+// ).then(function (data) {
+//     console.log(data);
+// }).catch(
+//     function (error) {
+
+//         console.log(error);
+
+//     }
+// )
+
+async function fetchData() {
+    try {
+        const result =  await fetch("https://jsonplaceholder.typicode.com/todos/3");
+        console.log(result);
+        const data =  await result.json();
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+fetchData();

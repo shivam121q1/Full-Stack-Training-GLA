@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard (Student Exercise)</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <span class="header-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--success); border-color: rgba(16, 185, 129, 0.2);">Student Exercise</span>
+            <h1>⚡ Weather Arena</h1>
+            <p>Write fetch requests & coordinates handlers to load weather conditions!</p>
+        </header>
+
+        <!-- Search Controls -->
+        <div class="glass-panel">
+            <form id="search-form" class="search-form">
+                <div class="input-group">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="city-input" class="search-input" placeholder="Search for a city... (e.g., Tokyo, London)" required autocomplete="off">
+                </div>
+                <button type="submit" class="btn btn-primary" id="search-btn">Search</button>
+            </form>
+
+            <div class="controls-row">
+                <button type="button" class="btn btn-secondary" id="geo-btn">
+                    📍 Use My Location
+                </button>
+                
+                <!-- Unit Switcher -->
+                <div class="unit-toggle-container">
+                    <button class="unit-btn active" id="unit-c" data-unit="C">°C</button>
+                    <button class="unit-btn" id="unit-f" data-unit="F">°F</button>
+                </div>
+            </div>
+
+            <!-- Recent Searches History -->
+            <div style="margin-top: 15px;" id="recent-container" class="hidden">
+                <div class="recent-cities">
+                    <span>Recent:</span>
+                    <div id="recent-list" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Key configuration reminder -->
+        <div id="key-warning-banner" class="api-key-banner hidden">
+            <span>⚠️ <strong>API Key Config Required:</strong> Live weather queries are disabled. Open <code>exercise-script.js</code> and update <code>API_KEY</code> with your <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap API Key</a>. Running in offline/mock fallback mode.</span>
+        </div>
+
+        <!-- Geolocation Info Banner -->
+        <div id="geo-banner" class="geo-info-banner hidden">
+            <span>📡 Geolocating user coordinates...</span>
+        </div>
+
+        <!-- Error Panel -->
+        <div id="error-panel" class="error-panel hidden">
+            <span class="error-icon">⚠️</span>
+            <div class="error-details">
+                <h4 id="error-title">City Not Found</h4>
+                <p id="error-message">We couldn't resolve this location. Try spelling it out or searching a nearby city.</p>
+            </div>
+        </div>
+
+        <!-- Loader Container -->
+        <div id="loader" class="loader-container hidden">
+            <div class="spinner"></div>
+            <p id="loader-text">Fetching weather reports...</p>
+        </div>
+
+        <!-- Main Weather Report Card -->
+        <main id="weather-card" class="glass-panel weather-card theme-default hidden">
+            <!-- Location Details -->
+            <div class="weather-location">
+                <h2 id="weather-city">
+                    London <span class="country-badge" id="weather-country">GB</span>
+                </h2>
+                <p id="weather-coords">Coordinates: 51.5085° N, -0.1257° W</p>
+            </div>
+
+            <!-- Main Temperature Box -->
+            <div class="weather-main">
+                <div class="weather-icon-lg" id="weather-icon">☀️</div>
+                <div class="weather-temp">
+                    <span id="temp-value">18.5</span><span class="degree" id="temp-unit">°C</span>
+                </div>
+                <div class="weather-desc" id="weather-desc">Clear Sky</div>
+                <div class="weather-feels" id="weather-feels">Feels like: 17.2°C</div>
+            </div>
+
+            <!-- Weather Details Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">💧</div>
+                    <div class="metric-label">Humidity</div>
+                    <div class="metric-val" id="val-humidity">64%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">💨</div>
+                    <div class="metric-label">Wind Speed</div>
+                    <div class="metric-val" id="val-wind">12.5 km/h</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🌧️</div>
+                    <div class="metric-label">Precipitation</div>
+                    <div class="metric-val" id="val-precip">0.0 mm</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer / Navigation -->
+        <footer class="footer-nav">
+            <a href="../inde.html" class="back-link">
+                ⬅️ Back to Practice Hub
+            </a>
+            <p>Loaded: <code>exercise-script.js</code></p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./exercise-script.js"></script>
+</body>
+</html>
