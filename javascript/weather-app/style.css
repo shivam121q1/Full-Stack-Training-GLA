@@ -1,0 +1,594 @@
+/* ==========================================================================
+   WEATHER DASHBOARD STYLE
+   Premium, Modern, Glassmorphism Theme (Dark-Mode Centric)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Color Palette */
+    --bg-dark: #090d16;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --primary: #38bdf8;
+    --primary-hover: #0ea5e9;
+    --accent-glow: rgba(56, 189, 248, 0.15);
+    
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    /* Font stacks */
+    --font-header: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Animation Easing */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   RESET & LAYOUT
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(168, 85, 247, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+}
+
+.app-container {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-family: var(--font-header);
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 50%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.header-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   GLASS PANELS
+   ========================================================================== */
+.glass-panel {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    padding: 24px;
+    transition: var(--transition-smooth);
+    margin-bottom: 20px;
+}
+
+.glass-panel:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   CONTROLS & FORMS
+   ========================================================================== */
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.input-group {
+    position: relative;
+    flex-grow: 1;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 16px 14px 44px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    font-size: 16px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #0b0f19;
+}
+
+.btn-primary:hover {
+    background: #7dd3fc;
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--card-border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Unit Selector Toggle */
+.unit-toggle-container {
+    display: flex;
+    background: rgba(15, 23, 42, 0.5);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+}
+
+.unit-btn {
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.unit-btn.active {
+    background: var(--primary);
+    color: #0b0f19;
+    box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+}
+
+/* ==========================================================================
+   SEARCH HISTORY & RECENT CITIES
+   ========================================================================== */
+.recent-cities {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.recent-cities span {
+    color: var(--text-muted);
+}
+
+.city-chip {
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    color: var(--text-secondary);
+}
+
+.city-chip:hover {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--primary);
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+/* ==========================================================================
+   MAIN WEATHER PRESENTATION CARD
+   ========================================================================== */
+.weather-card {
+    text-align: center;
+    padding: 40px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+/* Dynamic Gradient Overlays based on weather */
+.weather-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transition: var(--transition-smooth);
+    opacity: 0.15;
+}
+
+/* Weather Themes */
+.theme-default::before { background: radial-gradient(circle, #38bdf8 0%, transparent 70%); }
+.theme-sunny::before { background: radial-gradient(circle, #fbbf24 0%, transparent 70%); }
+.theme-cloudy::before { background: radial-gradient(circle, #94a3b8 0%, transparent 70%); }
+.theme-rainy::before { background: radial-gradient(circle, #60a5fa 0%, transparent 70%); }
+.theme-snowy::before { background: radial-gradient(circle, #a5f3fc 0%, transparent 70%); }
+.theme-thunder::before { background: radial-gradient(circle, #818cf8 0%, transparent 70%); }
+
+.weather-location {
+    margin-bottom: 20px;
+}
+
+.weather-location h2 {
+    font-family: var(--font-header);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.weather-location .country-badge {
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--text-secondary);
+}
+
+.weather-location p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.weather-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.weather-icon-lg {
+    font-size: 5rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.weather-temp {
+    font-family: var(--font-header);
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.weather-temp span.degree {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--primary);
+    margin-top: 4px;
+}
+
+.weather-desc {
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--primary);
+}
+
+.weather-feels {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   METRICS GRID
+   ========================================================================== */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+    border-top: 1px solid var(--card-border);
+    padding-top: 24px;
+}
+
+@media (max-width: 480px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.metric-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.metric-card:hover {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.metric-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.metric-val {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   STATES & HELPERS (LOADING, ERROR, HIDDEN)
+   ========================================================================== */
+.hidden {
+    display: none !important;
+}
+
+/* Loader Spinner */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(56, 189, 248, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loader-container p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Error Alert */
+.error-panel {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.error-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.error-details h4 {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+    color: #fecdd3;
+}
+
+.error-details p {
+    font-size: 0.85rem;
+}
+
+/* Geolocation Banner */
+.geo-info-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    color: #a7f3d0;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   NAVIGATION LINKS & FOOTER
+   ========================================================================== */
+.footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 16px;
+    font-size: 0.85rem;
+}
+
+.back-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition-smooth);
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+.footer-nav p {
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   API KEY CONFIG BANNER
+   ========================================================================== */
+.api-key-banner {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    color: #fef08a;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: var(--transition-smooth);
+}
+
+.api-key-banner strong {
+    color: #fbbf24;
+    font-weight: 700;
+}
+
+.api-key-banner code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--primary);
+    font-family: monospace;
+    font-size: 0.8rem;
+}
+
+.api-key-banner a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.api-key-banner a:hover {
+    color: #7dd3fc;
+}
+

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript DOM & Form Practice Hub</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Main Header Section -->
+        <header class="app-header">
+            <h1 id="practice-header">DOM Manipulation & Form Practice Hub</h1>
+            <p class="subtitle">An interactive environment to learn DOM Selection, Event Handling, and Form Validation</p>
+        </header>
+
+        <main class="practice-grid">
+            
+            <!-- Card 1: Element Selection & Style Manipulation -->
+            <section class="practice-card">
+                <h2>1. DOM & Style Control</h2>
+                <p class="card-desc">Practice modifying element text content, dynamic inline colors, and toggling custom CSS animation classes.</p>
+                <div class="btn-group">
+                    <button id="change-color-btn" class="btn btn-primary">🎨 Randomize Title Color</button>
+                    <button id="reset-btn" class="btn btn-secondary">🔄 Reset Title</button>
+                </div>
+            </section>
+
+            <!-- Card 2: Creating & Removing Nodes (Todo List) -->
+            <section class="practice-card">
+                <h2>2. Dynamic Elements (Todo)</h2>
+                <p class="card-desc">Type a task and add it to the DOM tree dynamically. Click a task to mark it completed (toggle class) or delete it entirely.</p>
+                
+                <div class="todo-control">
+                    <input type="text" id="todo-input" placeholder="e.g. Master Event Listeners..." autocomplete="off">
+                    <button id="add-todo-btn" class="btn btn-success">➕ Add Task</button>
+                </div>
+
+                <ul id="todo-list" class="todo-list">
+                    <!-- Dynamic Items will be appended here -->
+                </ul>
+            </section>
+
+            <!-- Card 3: Form Handling & Validation -->
+            <section class="practice-card">
+                <h2>3. Form Handling & Client-side Validation</h2>
+                <p class="card-desc">Fill out the form below. Standard submittal gets intercepted using <code>event.preventDefault()</code> and is fully validated via the DOM script.</p>
+
+                <form id="registration-form" novalidate>
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Type at least 3 characters" required>
+                        <span id="username-error" class="error-msg"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="example@domain.com" required>
+                        <span id="email-error" class="error-msg"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="At least 6 characters" required>
+                        <span id="password-error" class="error-msg"></span>
+                    </div>
+
+                    <!-- Dropdown Select -->
+                    <div class="form-group">
+                        <label for="course-select">Choose Course</label>
+                        <select id="course-select">
+                            <option value="Frontend Development">Frontend Development (HTML, CSS, JS)</option>
+                            <option value="Backend Mastery">Backend Mastery (NodeJS, Express)</option>
+                            <option value="Database Systems">Database Systems (SQL, MongoDB)</option>
+                        </select>
+                    </div>
+
+                    <!-- Radio Buttons -->
+                    <div class="form-group">
+                        <label>Gender Preference</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="Male" checked> Male
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="Female"> Female
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="Other"> Other
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="form-group checkbox-group">
+                        <label for="terms-checkbox">
+                            <input type="checkbox" id="terms-checkbox" required>
+                            I agree to practice coding daily and respect peers.
+                        </label>
+                        <span id="terms-error" class="error-msg block-error"></span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary submit-btn">Register Course 🚀</button>
+                </form>
+
+                <!-- Dynamic Success Display Card -->
+                <div id="form-success-message" class="form-success hidden"></div>
+            </section>
+
+            <!-- Card 4: Weather Dashboard (API & Geolocation) -->
+            <section class="practice-card">
+                <h2>4. Weather Dashboard API Project</h2>
+                <p class="card-desc">Practice asynchronous JavaScript. Retrieve locations, fetch weather forecasts using geocoding, coordinates, navigator geolocation, unit conversion, and dynamic themes.</p>
+                <div class="btn-group" style="margin-top: auto; display: flex; gap: 10px; width: 100%;">
+                    <a href="./weather-app/index.html" class="btn btn-primary" style="text-decoration: none; flex: 1; text-align: center; justify-content: center;">
+                        🟢 Run Solution
+                    </a>
+                    <a href="./weather-app/exercise.html" class="btn btn-secondary" style="text-decoration: none; flex: 1; text-align: center; justify-content: center;">
+                        💻 Start Exercise
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="app-footer-note">
+            <p>Loaded Script: <code>dom-script.js</code> | Open browser console (<code>F12</code>) to view log trace statements.</p>
+        </footer>
+    </div>
+
+    <!-- Script Links -->
+    <!-- Feel free to switch back to script.js when revising basic fundamentals -->
+    <!-- <script src="./script.js"></script> -->
+    <script src="./dom-script.js"></script>
+</body>
+</html>
