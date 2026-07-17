@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.about {
+    font-family: Arial, sans-serif;
+}
+
+/* Hero */
+
+.about-hero {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.about-hero h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.about-hero p {
+    max-width: 750px;
+    margin: auto;
+    line-height: 1.8;
+    font-size: 18px;
+}
+
+/* Story */
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    padding: 80px 8%;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.about-text p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.about-image {
+    flex: 1;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* Stats */
+
+.stats {
+    background: #f8f9fa;
+    padding: 70px 8%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.stat-card {
+    background: white;
+    padding: 35px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card h2 {
+    color: #2563eb;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: #666;
+}
+
+/* Mission */
+
+.mission {
+    padding: 80px 8%;
+    text-align: center;
+}
+
+.mission h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.mission p {
+    max-width: 850px;
+    margin: auto;
+    color: #555;
+    line-height: 1.8;
+    font-size: 18px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+    .about-section {
+        flex-direction: column;
+    }
+
+    .about-hero h1 {
+        font-size: 40px;
+    }
+
+    .about-text h2,
+    .mission h2 {
+        font-size: 32px;
+    }
+}

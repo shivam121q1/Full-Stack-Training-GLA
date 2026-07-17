@@ -1,70 +1,159 @@
 import { useState } from "react";
-import Card from "./components/Card";
-import "./App.css"
-
-// const todos = ["i drink water", "I will walk", "I will cook"];
-// //add todo
-// task ="I will add"
-// todos.push(task)
-
-// //delete todo
-// todos[inde];
+import "./App.css";
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [task, setTask] = useState("");
-  console.log("Task:", task);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    adult: true,
+    gender: "male",
+    course: "MCA",
+  });
 
-  function addTodo() {
-    if (task === "") {
-      return alert("ENter a todo first");
-    }
+  function changeHandler(event) {
+    const { name, value, type, checked } = event.target;
 
-    setTodos([...todos, task]); //Add todo
-    //copy from todos add
-    //add task
-    //todos store
-
-    //new array with previous and new  data
-    setTask(""); // Task
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
   }
-  const todo = ["HTML", "CSS"];
 
-  function deleteTodo(index) {
-
-    console.log(todos)
-    const updateTodos = todos.filter((item, i) => i !== index);
-    console.log(updateTodos)
-
-    setTodos(updateTodos);
-
-    console.log(updateTodos);
+  function submit(event) {
+    event.preventDefault();
+    console.log(formData);
   }
-  console.log("Todos", todos);
+
   return (
-    <div className="card">
-      <h1>To Do application</h1>
-      <input
-        type="text"
-        placeholder="Enter a task"
-        value={task}
-        onChange={(e) => {
-          setTask(e.target.value);
-        }}
-      ></input>
-      <button onClick={addTodo}>Add Todo</button>
+    <div className="container">
+      <form className="form-card" onSubmit={submit}>
+        <h1>Student Registration</h1>
 
-      {todos?.map((item, i) => {
-        return (
-          <h1>
-            {item} <button onClick={() => deleteTodo(i)}>delete</button>
-          </h1>
-        );
-      })}
+        <div className="form-group">
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            placeholder="Enter First Name"
+            value={formData.firstName}
+            onChange={changeHandler}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Enter Last Name"
+            value={formData.lastName}
+            onChange={changeHandler}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter Email"
+            value={formData.email}
+            onChange={changeHandler}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={formData.password}
+            onChange={changeHandler}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={changeHandler}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Course</label>
+          <select
+            name="course"
+            value={formData.course}
+            onChange={changeHandler}
+          >
+            <option value="MCA">MCA</option>
+            <option value="MSc">MSc</option>
+            <option value="MBA">MBA</option>
+            <option value="BCA">BCA</option>
+          </select>
+        </div>
+
+        <div className="checkbox">
+          <input
+            type="checkbox"
+            name="adult"
+            checked={formData.adult}
+            onChange={changeHandler}
+          />
+          <label>18+ Years Old</label>
+        </div>
+
+        <div className="radio-group">
+          <label>Gender</label>
+
+          <div className="radio-options">
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                checked={formData.gender === "male"}
+                onChange={changeHandler}
+              />
+              Male
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                checked={formData.gender === "female"}
+                onChange={changeHandler}
+              />
+              Female
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="others"
+                checked={formData.gender === "others"}
+                onChange={changeHandler}
+              />
+              Others
+            </label>
+          </div>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
-
-//React Fragment
 
 export default App;
