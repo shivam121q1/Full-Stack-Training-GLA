@@ -1,0 +1,12 @@
+//command to install
+npm init -y
+npm i epress
+npm i nodemon
+npm i dotenv
+npm i mongoose
+npm i bcrypt
+npm i jsonwebtoken
+
+//command to run
+
+npx nodemon index.js`
