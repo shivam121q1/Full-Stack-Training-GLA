@@ -1,40 +1,40 @@
 const mongoose = require("mongoose");
 
-const blogSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-    },
-    content: {
-        type: String,
-        require: true,
-    },
-    category: {
-        type: String,
-    },
-    image: {
-        type: String,
-        default: "",
-    },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    },
-    likes: [
-        {
+const blogSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            required: [true, "Title is required"],
+            trim: true,
+        },
+        content: {
+            type: String,
+            required: [true, "Content is required"],
+        },
+        category: {
+            type: String,
+            required: [true, "Category is required"],
+            trim: true,
+        },
+        image: {
+            type: String,
+            default: "",
+        },
+        author: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        }
-    ],
-    createdAt: {
-        type: Date,
-        default: Date.now()
+            ref: "User",
+            required: true,
+        },
+        likes: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
     },
-    updatedAt: {
-        type: Date,
-        default: Date.now()
-    }
+    { timestamps: true }
+);
 
-})
+blogSchema.index({ title: "text", category: "text" });
 
 module.exports = mongoose.model("Blog", blogSchema);
