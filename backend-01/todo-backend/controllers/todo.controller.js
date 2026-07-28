@@ -143,4 +143,51 @@ const deleteTodo = async (request, response) => {
     }
 }
 
-module.exports = { createTodo, updateTodo, deleteTodo, getAllTodo, getById };
+const searchTodo = async (req, res) => {
+    try {
+        const { search } = req.query;
+
+        // Validate search parameter
+        if (!search || typeof search !== "string") {
+            return res.status(400).json({
+                success: false,
+                message: "Search query is required."
+            });
+        }
+
+        const todos = await Todo.find({
+            $or: [
+                {
+                    title: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    description: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                }
+            ]
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Todos fetched successfully",
+            count: todos.length,
+            data: todos
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to search todos",
+            error: error.message
+        });
+    }
+};
+
+module.exports = { createTodo, updateTodo, deleteTodo, getAllTodo, getById, searchTodo };

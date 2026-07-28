@@ -1,96 +1,21 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-import Navbar from './components/Navbar'
-import AuthModal from './components/AuthModal'
-import { api } from './services/api'
-import BlogGrid from './components/BlogGrid'
 
 function App() {
-  const [openModal, setOpenModal] = useState(false);
-  const [user, setUser] = useState(null);
 
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const [toast, setToast] = useState(null);
-  const showToast = (message, type = "success") => {
-    setToast({ message, type });
-  };
-
-  const handelOpenModal = () => {
-    setOpenModal(true)
-  }
-
-  const handelCloseModal = () => {
-    setOpenModal(false)
-  }
-
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setUser(null);
-    showToast("Logged out successfully", "success");
-  };
-
-  console.log("User details", user)
-
-  useEffect(() => {
-    fetchBlogs();
-  }, [searchTerm, activeCategory]);
-
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      const res = await api.getBlogs({
-        search: searchTerm,
-        category: activeCategory,
-      });
-      if (res.success) {
-        setBlogs(res.blogs || []);
-      }
-    } catch (err) {
-      console.error(err);
-      showToast("Failed to fetch articles from backend", "error");
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <>
-      <Navbar onOpenAuth={handelOpenModal} user={user} onLogout={handleLogout} />
-      {/* condition render */}
-      {openModal && <AuthModal
-        onClose={handelCloseModal}
-        onLoginSuccess={(userData) => setUser(userData)}
-        onShowToast={showToast} />}
-      <BlogGrid 
-        blogs={blogs}
-        loading={loading}
-        onSelectBlog={(blog) => {
-          setSelectedBlog(blog);
-          setActiveModal("detail");
-        }}
-        // onLike={handleLike}
-        currentUserId={user?._id}
-      />
+      <div class="flex flex-col gap-2 p-8 sm:flex-row sm:items-center sm:gap-6 sm:py-4 ...">
+        <img class="mx-auto block h-24 rounded-full sm:mx-0 sm:shrink-0" src="/img/erin-lindford.jpg" alt="" />
+        <div class="space-y-2 text-center sm:text-left">
+          <div class="space-y-0.5">
+            <p class="text-lg font-semibold text-black">Erin Lindford</p>
+            <p class="font-medium text-gray-500">Product Engineer</p>
+          </div>
+          <button class="border-purple-200 text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700 ...">
+            Message
+          </button>
+        </div>
+      </div>
+
     </>
   )
 }

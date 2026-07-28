@@ -1,0 +1,269 @@
+{
+  "name": "n8n_voice_agent_workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "voice-agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "1801c03e-71c5-4297-8821-05903539b381",
+      "name": "Webhook (Receive Voice)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        112
+      ],
+      "webhookId": "16059382-1d64-4773-abd9-e832d4364bb7"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "binaryPropertyName": "file",
+        "options": {
+          "language": "en",
+          "temperature": 0
+        }
+      },
+      "id": "a61d08d2-bdfc-440f-8d71-98f00adddb60",
+      "name": "Whisper (Speech-to-Text)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        112
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "n8n Connect",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "You are a friendly, conversational voice assistant, like talking to a helpful person on the phone. Have a natural back-and-forth conversation: remember what was said earlier in the chat, ask follow-up questions when helpful, and keep replies short and spoken-friendly (1-3 sentences, no bullet points, no markdown, no emojis). Use the google_calendar_scheduler tool only when the user wants to schedule a meeting or event."
+        }
+      },
+      "id": "a172378f-d260-44f4-a468-dde169264d71",
+      "name": "Conversational AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        512,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "4c2a5d41-c84b-4467-9b70-3bc8bcf9e19e",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        336
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $(\"Webhook (Receive Voice)\").item.json.body.sessionId || \"default-session\" }}",
+        "contextWindowLength": 20
+      },
+      "id": "93a34ec3-f219-455e-995f-b14990017275",
+      "name": "Conversation Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        576,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "name": "google_calendar_scheduler",
+        "description": "Call this tool when the user wants to schedule an event or meeting.",
+        "jsCode": "return `[Success] Meeting scheduled on Google Calendar for user request: ${$input.item.json.query}`;"
+      },
+      "id": "a72cccd9-7860-4136-b5d5-74b73dcc870e",
+      "name": "google_calendar_scheduler",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1,
+      "position": [
+        704,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "model": "tts-1-hd",
+        "input": "={{ $json.output }}",
+        "voice": "nova",
+        "options": {
+          "response_format": "mp3"
+        }
+      },
+      "id": "c21d712c-3958-4d5c-9647-cc017b66daa4",
+      "name": "TTS (Text-to-Speech)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        912,
+        112
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "n8n Connect",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "binary",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "audio/mp3"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "06775989-57d9-4064-8fec-9e81d02ceec1",
+      "name": "Respond to Webhook (Return MP3)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1136,
+        112
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook (Receive Voice)": {
+      "main": [
+        [
+          {
+            "node": "Whisper (Speech-to-Text)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whisper (Speech-to-Text)": {
+      "main": [
+        [
+          {
+            "node": "Conversational AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversational AI Agent": {
+      "main": [
+        [
+          {
+            "node": "TTS (Text-to-Speech)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Conversational AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Conversational AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "google_calendar_scheduler": {
+      "ai_tool": [
+        [
+          {
+            "node": "Conversational AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TTS (Text-to-Speech)": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook (Return MP3)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "419b9353-ac9d-4ae0-bf09-ce5ca4290f51",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "83eb1aeb4a5c2d0e124b82239e34c3fc804014375bc5ca1e2c672564f3e3b1c7"
+  },
+  "nodeGroups": [],
+  "id": "W15EwAOguktBi38Q",
+  "tags": []
+}

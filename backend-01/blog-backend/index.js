@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 dbConnect();
 
 // Middlewares
-app.use(cors());
+app.use(cors("http://localhost:5173", "http://localhost:5174"));
 app.use(express.json());
 
 // API Routes

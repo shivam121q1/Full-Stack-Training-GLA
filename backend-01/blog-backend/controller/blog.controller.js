@@ -136,15 +136,17 @@ const updateBlog = async (request, response) => {
             });
         }
 
-        // const isAuthor = blog.author.toString() === request.user._id.toString();
-        // const isAdmin = request.user.role === "Admin";
 
-        // if (!isAuthor && !isAdmin) {
-        //     return response.status(403).json({
-        //         success: false,
-        //         message: "You are not authorized to update this blog post",
-        //     });
-        // }
+
+        const isAuthor = blog.author.toString() === request.user._id.toString();
+        const isAdmin = request.user.role === "Admin";
+
+        if (!isAuthor && !isAdmin) {
+            return response.status(403).json({
+                success: false,
+                message: "You are not authorized to update this blog post",
+            });
+        }
 
         if (title) blog.title = title.trim();
         if (content) blog.content = content;
@@ -221,8 +223,9 @@ const getMyBlogs = async (request, response) => {
 
         const filter = { author: request.user._id };
 
-        const totalBlogs = await Blog.countDocuments(filter);
-        const blogs = await Blog.find(filter)
+        const totalBlogs = await Blog.countDocuments(filter); //total count blog of the user
+
+        const blogs = await Blog.find({ author: request.user._id }) //get the blog of the user with pagination
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);

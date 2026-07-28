@@ -10,5 +10,6 @@ route.get("/get-todo", todoController.getAllTodo);
 route.put("/update-todo/:id", todoController.updateTodo);
 route.delete("/delete-todo/:id", todoController.deleteTodo);
 route.get("/get-todo/:id", todoController.getById);
+route.get("/search", todoController.searchTodo);
 
 module.exports = route;

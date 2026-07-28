@@ -1,0 +1,218 @@
+{
+  "name": "Multi-Modal Voice AI Agent (Student Classroom Template)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "voice-agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-webhook",
+      "name": "1. Webhook (Receive Voice/Text)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "binaryPropertyName": "file",
+        "options": {
+          "language": "en",
+          "temperature": 0
+        }
+      },
+      "id": "node-whisper",
+      "name": "2. OpenAI Whisper (Speech-to-Text)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [440, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are an executive Voice AI Assistant. Your goal is to process the user's voice request, decide if any tools (Calendar, Web Search, Notion) are needed, and provide a clear, concise spoken answer (under 3 sentences)."
+        }
+      },
+      "id": "node-agent",
+      "name": "3. n8n AI Agent Node",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "id": "node-model",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [620, 520],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionKey": "={{ $json.headers.host || 'default-session' }}"
+      },
+      "id": "node-memory",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [760, 520]
+    },
+    {
+      "parameters": {
+        "name": "google_calendar_scheduler",
+        "description": "Call this tool when user wants to schedule an event or meeting.",
+        "jsCode": "return `[Success] Meeting scheduled on Google Calendar for user request: ${$input.item.json.query}`;"
+      },
+      "id": "node-tool-calendar",
+      "name": "Tool: Google Calendar API",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1,
+      "position": [900, 520]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "synthesize",
+        "model": "tts-1",
+        "voice": "alloy",
+        "text": "={{ $json.output }}"
+      },
+      "id": "node-tts",
+      "name": "4. OpenAI TTS (Text-to-Speech)",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [960, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "binary",
+        "responseBinaryPropertyName": "data",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "audio/mp3"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "node-respond",
+      "name": "5. Respond to Webhook (Return MP3)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1180, 300]
+    }
+  ],
+  "connections": {
+    "1. Webhook (Receive Voice/Text)": {
+      "main": [
+        [
+          {
+            "node": "2. OpenAI Whisper (Speech-to-Text)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. OpenAI Whisper (Speech-to-Text)": {
+      "main": [
+        [
+          {
+            "node": "3. n8n AI Agent Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "3. n8n AI Agent Node",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "3. n8n AI Agent Node",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: Google Calendar API": {
+      "ai_tool": [
+        [
+          {
+            "node": "3. n8n AI Agent Node",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. n8n AI Agent Node": {
+      "main": [
+        [
+          {
+            "node": "4. OpenAI TTS (Text-to-Speech)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. OpenAI TTS (Text-to-Speech)": {
+      "main": [
+        [
+          {
+            "node": "5. Respond to Webhook (Return MP3)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
